@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="Permissions-Policy"
+      content="accelerometer=(), gyroscope=(), magnetometer=(), deviceorientation=()">
+
+<title>Srishti ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #ffd6e0, #ff9a9e);
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 40px 18px;
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.8rem, 8vw, 4rem);
+  color: #b11226;
+}
+
+p {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.heart {
+  font-size: 4.5rem;
+  margin: 15px 0;
+  animation: beat 1s infinite alternate;
+}
+
+@keyframes beat {
+  from { transform: scale(1); }
+  to { transform: scale(1.25); }
+}
+
+.btn {
+  display: block;
+  width: 90%;
+  max-width: 280px;
+  margin: 12px auto;
+  padding: 14px;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 30px;
+  background: #b11226;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Floating hearts */
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  font-size: 22px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-700px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background music (hidden YouTube embed) -->
+<iframe
+  id="bgMusic"
+  width="0"
+  height="0"
+  src=""
+  allow="autoplay">
+</iframe>
+
+<div class="container">
+  <h1>Srishti 💕</h1>
+  <p>
+    Hey beautiful…  
+    I made something special just for you 🥹
+  </p>
+
+  <div class="heart">❤️</div>
+
+  <button class="btn" id="startBtn">Tap here 💌</button>
+
+  <div id="question" class="hidden">
+    <p style="font-size:1.25rem;">Okay… heart racing now 😳</p>
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <button class="btn" onclick="yesClicked()">YES 😍</button>
+    <button class="btn" id="noBtn">No 🙈</button>
+  </div>
+
+  <div id="final" class="hidden">
+    <h1>YAYYYY 🎉💘</h1>
+    <p>
+      Mote, you’re my comfort,  
+      my chaos, my favorite person ❤️
+    </p>
+    <p>I love you endlessly.</p>
+    <p style="margin-top:20px;">— Sumit 💕</p>
+  </div>
+</div>
+
+<script>
+const startBtn = document.getElementById("startBtn");
+const question = document.getElementById("question");
+const finalScreen = document.getElementById("final");
+const noBtn = document.getElementById("noBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+/* Jaan Ban Gaye – background music */
+const songURL =
+  "https://www.youtube.com/embed/2QR8A-7XbKk?autoplay=1&loop=1&playlist=2QR8A-7XbKk";
+
+/* Start experience */
+startBtn.addEventListener("click", () => {
+  startBtn.classList.add("hidden");
+  question.classList.remove("hidden");
+
+  // Start background music AFTER user interaction
+  bgMusic.src = songURL;
+
+  createHearts();
+});
+
+function yesClicked() {
+  if (navigator.vibrate) navigator.vibrate([200,100,200]);
+  question.classList.add("hidden");
+  finalScreen.classList.remove("hidden");
+}
+
+/* Make NO button escape */
+noBtn.addEventListener("click", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+function moveNoButton(e) {
+  e.preventDefault();
+
+  noBtn.style.position = "fixed";
+
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+/* Floating hearts */
+function createHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("floating-heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+  }, 350);
+}
+</script>
+
+</body>
+</html>
